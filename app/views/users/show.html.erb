@@ -1,0 +1,14 @@
+<h1>User name: <b><%= @user.name %></b></h1>
+<h1>Phone: <b><%= @user.phone_number %></b></h1>
+<h1>Email: <b><%= @user.email %></b></h1>
+<h1>Password: <b><%= @user.password_digest %></b></h1>
+<h1>Date of birth: <b><%= @user.date_of_birth %></b></h1>
+<% if @user.gender %>
+	<h1>Gender: <b>Male</b></h1>
+<% else %>
+	<h1>Gender: <b>Female</b></h1>
+<% end -%>
+<h1>Fav cinema: <b><%= @user.favorite_cinema %></b></h1>
+
+
+
