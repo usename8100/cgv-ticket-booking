@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
+  get 'users/new'
   get 'static_pages/home'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  resources :users
+  resources :account_activations, only: [:edit]
   root 'static_pages#home'
 end
