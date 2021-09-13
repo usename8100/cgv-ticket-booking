@@ -1,5 +1,5 @@
-class ApplicationMailer < ActionMailer::Base
-  default from: "from@example.com"
+class ExampleMailer < ApplicationMailer
+  default from: "trinhminhlongad@gmail.com"
 
   def sample_email user
     @user = user

@@ -1,0 +1,84 @@
+<h1 style="text-align: center;">Sign Up</h1>
+<div class="col-md-6 col-md-offset-3">
+  <%= form_with(model: @user) do |form| %>
+    <div class="mb-3 form-group">
+      <%= form.label :name, "Tên" %>
+      <%= form.text_field :name, class:"form-control", placeholder: "Tên"%>
+    </div>
+    <% if @user.errors[:name].any? %>
+    <div class="error_explanation">
+      <div class="alert alert-danger">
+        <div><%= @user.errors.full_messages_for(:name).first %></div>
+      </div>
+    </div>
+    <% end %>
+
+    <div class="mb-3 form-group">
+      <%= form.label :phone_number, "Số điện thoại" %>
+      <%= form.text_field :phone_number, class:"form-control", placeholder: "Số điện thoại"%>
+    </div>
+    <% if @user.errors[:phone_number].any? %>
+    <div class="error_explanation">
+      <div class="alert alert-danger">
+        <div><%= @user.errors.full_messages_for(:phone_number).first %></div>
+      </div>
+    </div>
+    <% end %>
+
+    <div class="mb-3 form-group">
+      <%= form.label :email, "Email" %>
+      <%= form.text_field :email, class:"form-control", placeholder: "Email"%>
+    </div>
+    <% if @user.errors[:email].any? %>
+    <div class="error_explanation">
+      <div class="alert alert-danger">
+        <div><%= @user.errors.full_messages_for(:email).first %></div>
+      </div>
+    </div>
+    <% end %>
+
+    <div class="mb-3 form-group">
+      <%= form.label :password, "Mật khẩu" %>
+      <%= form.password_field :password, class:"form-control", placeholder: "Mật khẩu"%>
+    </div>
+    <% if @user.errors[:password].any? %>
+    <div class="error_explanation">
+      <div class="alert alert-danger">
+        <div><%= @user.errors.full_messages_for(:password).first %></div>
+      </div>
+    </div>
+    <% end %>
+
+    <div class="mb-3 form-group">
+      <%= form.label :date_of_birth, "Ngày sinh" %>
+      <%= form.date_select :date_of_birth, :order => [:day, :month, :year] %>
+    </div>
+
+    <div class="mb-3 form-group">
+      <%= form.label :gender, "Giới tính" %>
+      <%= form.radio_button :gender, true %> <b>Nam</b>
+      <%= form.radio_button :gender, false %> <b>Nữ</b>
+    </div>
+    <% if @user.errors[:gender].any? %>
+    <div class="error_explanation">
+      <div class="alert alert-danger">
+        <div>Please select your gender</div>
+      </div>
+    </div>
+    <% end %>
+
+    <div class="mb-3 form-group">
+      <%= form.label :city, "Khu vực" %>
+      <%= form.select :city, options_for_select(["Hà Nội","TP Hồ Chí Minh"])%>
+    </div>
+
+    <div class="mb-3 form-group">
+      <%= form.label :favorite_cinema, "Rạp yêu thích" %>
+      <%= form.select :favorite_cinema, options_for_select(["CGV Aeon Canary","CGV Aeon Ha Dong"])%>
+    </div>
+
+    <div class="mb-3 form-group">
+      <%= form.submit "Đăng ký", class: "btn btn-primary form-control" %>
+    </div>
+  <% end -%>
+</div>

@@ -36,7 +36,7 @@
 
       <div class="header-top-account">
         <div class="account-header-wrapper mn-login"> 
-          <a href="#"><img src="https://www.cgv.vn/skin/frontend/cgv/default/images/bg-cgv/icon_login25.png">Đăng nhập/ Đăng ký</a>
+          <img src="https://www.cgv.vn/skin/frontend/cgv/default/images/bg-cgv/icon_login25.png"><%= link_to "Đăng nhập/ Đăng ký", new_user_path %>
         </div>
       </div>
     </div> 
@@ -45,11 +45,9 @@
 
 <header id="header" class="page-header">
   <div class="page-header-container">
-    <a href="" class="logo">
-      <img class="large" src="https://www.cgv.vn/skin/frontend/cgv/default/images/cgvlogo.png">
-      <!-- <img class="small" src="https://www.cgv.vn/skin/frontend/cgv/default/images/cgvlogo-small.png"> -->
-    </a> 
-
+    <%= link_to (image_tag("https://www.cgv.vn/skin/frontend/cgv/default/images/cgvlogo.png", class: "large")), root_path, class: "logo" %>
+    <!-- <img class="small" src="https://www.cgv.vn/skin/frontend/cgv/default/images/cgvlogo-small.png"> -->
+    
     <div id="header-nav" class="skip-content">
       <nav id="nav">
         <ol class="nav-primary">
