@@ -1,11 +1,57 @@
-<h1>User name: <b><%= @user.name %></b></h1>
-<h1>Phone: <b><%= @user.phone_number %></b></h1>
-<h1>Email: <b><%= @user.email %></b></h1>
-<h1>Password: <b><%= @user.password_digest %></b></h1>
-<h1>Date of birth: <b><%= @user.date_of_birth %></b></h1>
-<% if @user.gender %>
-  <h1>Gender: <b>Male</b></h1>
-<% else %>
-  <h1>Gender: <b>Female</b></h1>
-<% end -%>
-<h1>Fav cinema: <b><%= @user.favorite_cinema %></b></h1>
+<div class="main">
+  <div class="col-left sidebar col-left-first">
+    <div class="block block-account">
+      <div class="block-title">
+        <strong><span>Tài khoản CGV</span></strong>
+      </div>
+      <div class="block-content">
+        <ul>
+          <li class="current">
+            <%= link_to 'Thông tin chung', current_user %>
+          </li>
+          <li>
+            <%= link_to 'Chi tiết tài khoản', edit_user_path %>
+          </li>
+          <li>
+            <%= link_to 'Lịch sử giao dịch' %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-main">
+    <div class="my-account">
+      <div class="dashboard">
+        <div class="page-title">
+          <h1>Thông tin chung</h1>
+        </div>
+        <div class="format-profile-cgv">
+          <div class="my-profile-cgv">
+            <div class="image-profile-cgv"></div>
+          </div>
+          <div class="welcome-msg">
+            <p class="hello"><strong>Xin chào <%= current_user.name %>,</strong></p>
+            <p>Với trang này, bạn sẽ quản lý được tất cả thông tin tài khoản của mình.</p>
+          </div>
+          <div class="box-account box-info">
+            <div class="box-head">
+              <h2>Thông tin tài khoản</h2>
+            </div>
+            <div class="box">
+              <div class="box-title">
+                <h3 class="title-my-cgv">Liên hệ</h3>
+                <%= link_to 'Thay đổi', edit_user_path %>
+              </div>
+              <div class="box-content box-content-my-cgv col2-set">
+                <span>Tên: <%= current_user.name %></span>
+                <span>Email: <%= current_user.email %></span>
+                <span>Điện thoại : <%= current_user.phone_number %></span>
+                <span>Tên đăng nhập: <%= current_user.email %></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
