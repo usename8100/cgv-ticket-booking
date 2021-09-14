@@ -4,6 +4,7 @@ class User < ApplicationRecord
   before_create :create_activation_digest
 
   has_secure_password
+  has_one_attached :avatar
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   VALID_NUMBER_REGEX = /\d[0-9]\)*\z/
