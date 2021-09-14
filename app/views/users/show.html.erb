@@ -27,7 +27,9 @@
         </div>
         <div class="format-profile-cgv">
           <div class="my-profile-cgv">
-            <div class="image-profile-cgv"></div>
+            <div class="image-profile-cgv">
+              <%= image_tag current_user.avatar, class:"avatar" if current_user.avatar.attached? %>
+            </div>
           </div>
           <div class="welcome-msg">
             <p class="hello"><strong>Xin chào <%= current_user.name %>,</strong></p>

@@ -81,6 +81,12 @@
               </div>
 
               <div class="mb-3 form-group">
+                <%= form.label :avatar, "Anh dai dien" %>
+                <%= image_tag @user.avatar, class: "avatar" if @user.avatar.attached? %>
+                <%= form.file_field :avatar %>
+              </div>
+
+              <div class="mb-3 form-group">
                 <%= form.submit "Lưu lại", class: "btn btn-primary" %>
               </div>
             </div>
