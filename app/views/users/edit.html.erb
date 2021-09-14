@@ -1,0 +1,93 @@
+<div class="main">
+  <div class="col-left sidebar col-left-first">
+    <div class="block block-account">
+      <div class="block-title">
+        <strong><span>Tài khoản CGV</span></strong>
+      </div>
+      <div class="block-content">
+        <ul>
+          <li>
+            <%= link_to 'Thông tin chung', current_user %>
+          </li>
+          <li class="current">
+            <%= link_to 'Chi tiết tài khoản', edit_user_path %>
+          </li>
+          <li>
+            <%= link_to 'Lịch sử giao dịch' %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-main">
+    <div class="my-account">
+      <div class="dashboard">
+        <div class="page-title">
+          <h1>Thay đổi thông tin</h1>
+        </div>
+        <div>
+          <div class="row">
+            <%= form_with(model: @user) do |form| %>
+            <div class="col-sm-6">
+              <div class="mb-3 form-group">
+                <%= form.label :name, "Tên" %>
+                <%= form.text_field :name, class:"form-control", placeholder: "Tên", value: current_user.name %>
+              </div>
+
+              <div class="mb-3 form-group">
+                <%= form.label :phone_number, "Số điện thoại" %>
+                <%= form.text_field :phone_number, class:"form-control", placeholder: "Số điện thoại", value: current_user.phone_number %>
+              </div>
+
+              <h5><strong>Ngày sinh</strong></h5>
+              <p><%= current_user.date_of_birth %></p>
+
+              <h5><strong>Email</strong></h5>
+              <p><%= current_user.email %></p>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="mb-3 form-group">
+                <%= form.label :password, "Mật khẩu" %>
+                <%= form.password_field :password, class:"form-control", placeholder: "Mật khẩu"%>
+              </div>
+
+              <div class="mb-3 form-group">
+                <%= form.label :gender, "Giới tính" %>
+                <% if current_user.gender %>
+                  <%= form.radio_button :gender, true, :checked => true%> <b>Nam</b>
+                  <%= form.radio_button :gender, false %> <b>Nữ</b>
+                <% else %>
+                  <%= form.radio_button :gender, true %> <b>Nam</b>
+                  <%= form.radio_button :gender, false, :checked => true %> <b>Nữ</b>
+                <% end -%>
+              </div>
+
+              <div class="mb-3 form-group">
+                <%= form.label :city, "Khu vực" %>
+                <%= form.select :city, options_for_select(["Hà Nội","TP Hồ Chí Minh"])%>
+              </div>
+
+              <div class="mb-3 form-group">
+                <%= form.label :favorite_cinema, "Rạp yêu thích" %>
+                <%= form.select :favorite_cinema, options_for_select(["CGV Aeon Canary","CGV Aeon Ha Dong"], selected: current_user.favorite_cinema) %>
+              </div>
+
+              <div class="form-group">
+                <%= form.label :remember_me do %>
+                  <%= form.check_box :remember_me %>
+                  <span>Tôi muốn thay đổi mật khẩu</span>
+                <% end %>
+              </div>
+
+              <div class="mb-3 form-group">
+                <%= form.submit "Lưu lại", class: "btn btn-primary" %>
+              </div>
+            </div>
+            <% end -%>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
