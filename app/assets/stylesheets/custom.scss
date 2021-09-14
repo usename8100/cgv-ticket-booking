@@ -41,6 +41,14 @@ a {
   text-decoration: none;
 }
 
+a:hover {
+  text-decoration: none;
+}
+
+.btn {
+  background-color: #e71a0f !important;
+}
+
 /* header */
 
 .header-language-background, .header-language-background a{ 
@@ -406,4 +414,47 @@ ol{
   position: relative;
   text-indent: -9999px;
   background: url(https://www.cgv.vn/skin/frontend/cgv/default/images/cong-thuong.PNG) no-repeat scroll top left transparent;
+}
+
+/* login, signup page */
+
+#form-login-signup-nav {
+  background-color: #e71a0f;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 20px 20px 10px;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+#form-login-signup-nav span.active {
+  border-bottom: 3px solid #fff;
+  color: #fff;
+}
+
+#form-login-signup-nav span {
+  cursor: pointer;
+  margin: 0 20px;
+  padding: 20px 15px 8px;
+  text-transform: uppercase;
+}
+
+.btn-redirect {
+  color: #ddd;
+}
+
+.btn-redirect:hover {
+  color: #ddd;
+  text-decoration: none;
+}
+
+.link-password-reset {
+  color: #4896fa;
+  font-size: 12px;
+}
+
+.link-password-reset:hover {
+  text-decoration: none;
 }

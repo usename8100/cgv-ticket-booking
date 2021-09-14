@@ -1,0 +1,35 @@
+<% provide(:title, 'Đăng nhập') %>
+
+<h2 id="form-login-signup-nav">
+  <span id="form-login-content" class="active">Đăng nhập</span>
+  <span id="form-signup-content">
+    <%= link_to 'đăng ký', signup_path, class:"btn-redirect" %>
+  </span>
+</h2>
+<br>
+<div class="col-md-6 col-md-offset-3">
+  <%= form_for(:session, url: login_path) do |form| %>
+    <div class="mb-3 form-group">
+      <%= form.label :email, "Email" %>
+      <%= form.email_field :email, class:"form-control", placeholder: "Email"%>
+    </div>
+
+    <div class="mb-3 form-group">
+      <%= form.label :password, "Mật khẩu" %>
+      <%= form.password_field :password, class:"form-control", placeholder: "Mật khẩu"%>
+    </div>
+
+    <div class="mb-3 form-group">
+      <%= form.submit "Đăng nhập", class: "btn btn-primary form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :remember_me do %>
+        <%= form.check_box :remember_me %>
+        <span>Lưu tài khoản trên máy tính này</span>
+      <% end %>
+    </div>
+  <% end -%>
+
+  <%= link_to "Quên mật khẩu?", new_password_reset_path, class: "link-password-reset" %>
+</div>
