@@ -31,7 +31,11 @@
             <div class="col-sm-6">
               <div class="mb-3 form-group">
                 <div style="text-align: center;">
-                  <%= image_tag @user.avatar, class: "avatar" if @user.avatar.attached? %>
+                  <% if current_user.avatar.attached? %>
+                    <%= image_tag current_user.avatar, class:"avatar" %>
+                  <% else %>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" class="avatar">
+                  <% end -%>
                 </div>
                 <%= form.file_field :avatar, style: "text-align: center" %>
               </div>
