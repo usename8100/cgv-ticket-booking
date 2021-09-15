@@ -30,6 +30,13 @@
             <%= form_with(model: @user) do |form| %>
             <div class="col-sm-6">
               <div class="mb-3 form-group">
+                <div style="text-align: center;">
+                  <%= image_tag @user.avatar, class: "avatar" if @user.avatar.attached? %>
+                </div>
+                <%= form.file_field :avatar, style: "text-align: center" %>
+              </div>
+
+              <div class="mb-3 form-group">
                 <%= form.label :name, "Tên" %>
                 <%= form.text_field :name, class:"form-control", placeholder: "Tên", value: current_user.name %>
               </div>
@@ -48,14 +55,14 @@
 
             <div class="col-sm-6">
               <div class="mb-3 form-group">
-                <%= form.label :password, "Mật khẩu" %>
-                <%= form.password_field :password, class:"form-control", placeholder: "Mật khẩu"%>
+                <%= form.label :current_password, "Mật khẩu hiện tại" %>
+                <%= form.password_field :current_password, class:"form-control", placeholder: "Mật khẩu hiện tại"%>
               </div>
 
               <div class="mb-3 form-group">
                 <%= form.label :gender, "Giới tính" %>
                 <% if current_user.gender %>
-                  <%= form.radio_button :gender, true, :checked => true%> <b>Nam</b>
+                  <%= form.radio_button :gender, true, :checked => true %> <b>Nam</b>
                   <%= form.radio_button :gender, false %> <b>Nữ</b>
                 <% else %>
                   <%= form.radio_button :gender, true %> <b>Nam</b>
@@ -75,17 +82,46 @@
 
               <div class="form-group">
                 <%= form.label :remember_me do %>
-                  <%= form.check_box :remember_me %>
+                  <%= form.check_box :remember_me, :onclick=>"addbox();" %>
                   <span>Tôi muốn thay đổi mật khẩu</span>
                 <% end %>
               </div>
 
-              <div class="mb-3 form-group">
-                <%= form.label :avatar, "Anh dai dien" %>
-                <%= image_tag @user.avatar, class: "avatar" if @user.avatar.attached? %>
-                <%= form.file_field :avatar %>
+              <div class="mb-3 form-group" id="new_password" style="display: none;">
+                <%= form.label :password, "Mật khẩu mới" %>
+                <%= form.password_field :password, class:"form-control", placeholder: "Mật khẩu mới"%>
               </div>
+              <% if @user.errors[:password].any? %>
+                <div class="error_explanation">
+                  <div class="alert alert-danger">
+                    <div><%= @user.errors.full_messages_for(:password).first %></div>
+                  </div>
+                </div>
+              <% end %>
 
+              <div class="mb-3 form-group" id="new_password_confirmation" style="display: none;">
+                <%= form.label :password_confirmation, "Xác minh mật khẩu mới" %>
+                <%= form.password_field :password_confirmation, class:"form-control", placeholder: "Nhập lại mật khẩu mới"%>
+              </div>
+              <% if @user.errors[:password_confirmation].any? and !@user.errors[:password].any? %>
+                <div class="error_explanation">
+                  <div class="alert alert-danger">
+                    <div><%= @user.errors.full_messages_for(:password_confirmation).first %></div>
+                  </div>
+                </div>
+              <% end %>
+
+              <script type="text/javascript">
+                function addbox() {
+                  if (document.getElementById('user_remember_me').checked) {
+                    document.getElementById('new_password').style.display = 'block';
+                    document.getElementById('new_password_confirmation').style.display = 'block';
+                  } else {
+                    document.getElementById('new_password').style.display = 'none';
+                    document.getElementById('new_password_confirmation').style.display = 'none';
+                  }
+                }
+              </script>
               <div class="mb-3 form-group">
                 <%= form.submit "Lưu lại", class: "btn btn-primary" %>
               </div>

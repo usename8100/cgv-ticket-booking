@@ -11,8 +11,7 @@ class User < ApplicationRecord
 
   validates :name, presence: true, length: { maximum: 50 }
   validates :email, presence: true, length: { maximum: 50 }, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: true }
-  validates :password, presence: true, length: { minimum: 6 }
-  validates :gender, presence: true
+  validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   validates :phone_number, presence: true, length: { minimum: 10, maximum: 11 },format: {with: VALID_NUMBER_REGEX}
 
   # Returns the hash digest of the given string.
@@ -65,6 +64,10 @@ class User < ApplicationRecord
   # Returns true if a password reset has expired.
   def password_reset_expired?
     reset_sent_at < 2.hours.ago
+  end
+  
+  def self.authenticate email, password
+    User.find_by_email(email).try(:authenticate, password)
   end
 
   private
