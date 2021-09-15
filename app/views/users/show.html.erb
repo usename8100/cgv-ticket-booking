@@ -25,17 +25,17 @@
         <div class="page-title">
           <h1>Thông tin chung</h1>
         </div>
-        <div class="format-profile-cgv">
-          <div class="my-profile-cgv">
+        <div class="format-profile-cgv row">
+          <div class="my-profile-cgv col-sm-4">
             <div class="image-profile-cgv">
               <%= image_tag current_user.avatar, class:"avatar" if current_user.avatar.attached? %>
             </div>
           </div>
-          <div class="welcome-msg">
+          <div class="welcome-msg col-sm-8">
             <p class="hello"><strong>Xin chào <%= current_user.name %>,</strong></p>
             <p>Với trang này, bạn sẽ quản lý được tất cả thông tin tài khoản của mình.</p>
           </div>
-          <div class="box-account box-info">
+          <div class="box-account box-info col-sm-12">
             <div class="box-head">
               <h2>Thông tin tài khoản</h2>
             </div>

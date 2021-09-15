@@ -125,14 +125,8 @@
 }
 
 .my-profile-cgv {
-  float: left;
-  width: 100%;
-  margin-bottom: 20px;
-}
-
-.image-profile-cgv {
-  float: left;
-  width: 49%;
+  margin: 20px auto;
+  text-align: center;
 }
 
 .dashboard .box-account {
@@ -140,7 +134,7 @@
 }
 
 .dashboard .box-head {
-  margin-top: 30px;
+  margin-top: 10px;
   border-bottom: 1px solid #cccccc;
   padding-bottom: 7px;
 }
@@ -179,8 +173,13 @@
   border-radius: 5px;
 }
 
-.box-content, .welcome-msg {
+.welcome-msg {
   font-size: 13px;
+  margin: 5% auto;
+}
+
+.box-content {
+  font-size: 14px;
 }
 
 .box-content.box-content-my-cgv span {
