@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'sessions/new'
   get 'users/new'
   get 'static_pages/home'
+  get 'movies/index'
 
   match '/404', to: 'static_pages#not_found', via: :all
   match '/500', to: 'static_pages#internal_server_error', via: :all
@@ -11,6 +12,7 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   get '/signup', to: 'users#new'
+  get '/movie_demo', to: 'movies#index'
 
   resources :users
   resources :account_activations, only: [:edit]
