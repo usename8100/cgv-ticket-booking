@@ -1,3 +1,29 @@
+<%= render 'movies/search_form.html.erb' %>
+<%= render 'movies/filter_bar.html.erb' %>
+<ul>
 <% @movies.each do |movie| %>
-  <img src="<%= movie.image_link %>" class="movie_poster img-thumbnail" >
+  <li class="movie-lists">
+    <%= link_to movie_path(movie), class: "movie-image" do %>
+      <%= image_tag movie.image_link, class: "movie-poster" %>
+    <% end -%>
+    <div class="movie-info">
+      <h2 class="movie-name"><%= movie.title %></h2>
+      <div>
+        <span><b>Thể loại: </b></span>
+        <% @genres.each do |genre| %>
+          <span><%= genre.genre if genre.id == movie.movie_genre_id %></span>
+        <% end -%>
+      </div>
+      <div>
+        <span><b>Thời lượng: </b></span>
+        <span><%= movie.length.to_s + " phút" %></span>  
+      </div>
+      <div>
+        <span><b>Khởi chiếu: </b></span>
+        <span><%= movie.start_date.strftime("%d/%m/%Y") %></span>  
+      </div>
+    </div>
+  </li>
 <% end %>
+</ul>
+<%== pagy_bootstrap_nav(@pagy).html_safe %>
