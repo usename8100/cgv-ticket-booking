@@ -1,0 +1,7 @@
+<div class="filter-bar">
+  <span>bộ lọc</span>
+    <%= sort_link(@q, :start_date, "ngày chiếu", default_order: :desc) %>
+    <%= sort_link(@q, :movie_genre_genre, "Thể loại") %>
+    <%= sort_link(@q, :movie_genre_genre, "Tên phim", default_order: :desc) %>
+    <%= sort_link(@q, :length, "Thời lượng", default_order: :desc) %>
+</div>

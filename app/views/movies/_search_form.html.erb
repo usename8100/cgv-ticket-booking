@@ -1,0 +1,21 @@
+<div class="search-bar">
+  <%= search_form_for @q do |f| %>
+    <%= f.search_field :title_cont, placeholder: "Nhập từ khóa tìm kiếm...", class:"search-field", id: "movie-field" %>
+    <%= f.search_field :movie_genre_cont, placeholder: "Nhập từ khóa tìm kiếm...", class:"search-field", id: "movie-genre-field" %>
+    <%= select_tag("search_select", options_for_select(["Tên phim","Thể loại"]), :onchange => 'showSearchFielld(this)') %>
+    <%= f.submit "Tìm kiếm", class: "btn btn-search" %>
+  <% end -%>
+</div>
+<script type="text/javascript">
+  function showSearchFielld(select) {
+    if (select.value == 0) {
+      document.getElementById('movie-genre-field').value = '';
+      document.getElementById('movie-field').style.display = 'block';
+      document.getElementById('movie-genre-field').style.display = 'none';
+    } else {
+      document.getElementById('movie-field').value = '';
+      document.getElementById('movie-field').style.display = 'none';
+      document.getElementById('movie-genre-field').style.display = 'block';
+    }
+  }
+</script>

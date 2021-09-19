@@ -38,7 +38,7 @@
         <div class="account-header-wrapper mn-login"> 
           <img src="https://www.cgv.vn/skin/frontend/cgv/default/images/bg-cgv/icon_login25.png">
           <% if !logged_in? %>
-            <%= link_to "Đăng nhập/ Đăng ký", signup_path %>
+            <%= link_to "Đăng nhập/ Đăng ký", login_path %>
           <% else %>
             <%= link_to "Profile", current_user %>
             <span style="border-left: 1px solid black;margin-right: 3px;"></span>
