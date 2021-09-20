@@ -1,1 +1,48 @@
-<h1 style="color: black;text-align: center;">More details for <%= @movie.title%></h1>
+<div class="show-movie-details">
+  <h1 id="title-detail">Nội Dung Phim</h1>
+  <div class="movie-details">
+    <div class="poster">
+      <%= image_tag @movie.image_link, class: "img-thumbnail" %>
+    </div>
+    <div class="movie-info">
+      <h1><%= @movie.title %></h1>
+      <div>
+        <span><b>Đạo diễn: </b></span>
+        <span><%= @movie.director %></span>  
+      </div>
+      <div>
+        <span><b>Diễn viên: </b></span>
+        <span><%= @movie.cast %></span>  
+      </div>
+      <div>
+        <span><b>Thể loại: </b></span>
+        <% @genres.each do |genre| %>
+        <span><%= genre.genre if genre.id == @movie.movie_genre_id %></span>
+        <% end -%>
+      </div>
+      <div>
+        <span><b>Thời lượng: </b></span>
+        <span><%= @movie.length.to_s + " phút" %></span>  
+      </div>
+      <div>
+        <span><b>Khởi chiếu: </b></span>
+        <span><%= @movie.start_date.strftime("%d/%m/%Y") %></span>  
+      </div>
+      <div>
+        <span><b>Ngôn ngữ: </b></span>
+        <span><%= @movie.language %></span>  
+      </div>
+      <div>
+        <span><b>Rated: </b></span>
+        <span><%= @movie.rated %></span>  
+      </div>
+      <div style="margin-top: 20px;">
+        <%= link_to 'Mua vé',class: "btn-buy-ticket" %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="movie-desc">
+  <h2>Chi tiết</h2>
+  <p><%= @movie.description %></p>
+</div>

@@ -43,6 +43,7 @@
   height: 40px;
   background-color: white;
   border: 1px solid #e6e6e6;
+  min-width: 564px;
 }
 
 .btn-search img {
@@ -77,13 +78,14 @@
 }
 
 .filter-bar {
-  width: 100%;
+  width: 1000;
+  min-width: 572px;
   background: #afc1c1;
   font-weight: 600;
   padding: 10px 20px;
   border-radius: 10px;
   text-transform: uppercase;
-  margin: 20px 0;
+  margin: 20px auto;
   font-size: 16px;
   color: #000000;
 }
@@ -109,4 +111,70 @@
 #search_select * {
   width: 15%;
   height: 90px;
+}
+
+/* movie's details page */
+
+
+.show-movie-details {
+  padding-bottom: 10px;
+  max-width: 980px;
+  margin: 0 auto;
+  #title-detail {
+    border-bottom: 2px solid #222;
+    color: #222;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
+  .movie-details {
+    .poster {
+      float: left;
+      height: 370px;
+      img {
+        width: 250px;
+      }
+    }
+    .movie-info {
+      width: 70%;
+      float: right;
+      margin-left: 20px;
+      height: 370px;
+      h1 {
+        margin-top: 0;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #d9d6c8;
+        text-transform: uppercase;
+        font-weight: 350;
+        font-size: 28px;
+      }
+      span {
+        line-height: 22px;
+        font-size: 16px;
+      }
+      a {
+        background: none no-repeat scroll 0 0 #e71a0f;
+        text-decoration: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        color: #FFFFFF;
+        text-transform: uppercase;
+        font-weight: 1000;
+        margin-top: 200px;
+      }
+    }
+  }
+}
+
+.movie-desc {
+  color: #222;
+  max-width: 980px;
+  margin: 0 auto;
+  clear: both;
+  h2 {
+    text-align: center;
+  }
+  p {
+    line-height: 20px;
+    font-size: 15px;
+  }
 }
