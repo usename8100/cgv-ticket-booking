@@ -8,6 +8,7 @@ class MoviesController < ApplicationController
   end
   
   def show
-    @movie = Movie.find(params[:id])
+    @movie = Movie.friendly.find(params[:id])
+    @genres = MovieGenre.all
   end
 end

@@ -15,6 +15,8 @@ gem 'ransack'
 gem 'faker'
 gem 'pagy'
 
+gem 'friendly_id'
+
 gem 'dotenv-rails'
 
 gem 'bootstrap-sass', '3.4.1'
