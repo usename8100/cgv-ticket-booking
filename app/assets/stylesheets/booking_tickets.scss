@@ -1,0 +1,16 @@
+.ticket-booking {
+  width: 980px;
+  margin: 0 auto;
+  .ticket-date-select {
+    background-color: red;
+    height: 140px;
+  }
+  .ticket-time-select {
+    background-color: green;
+    height: 140px;
+  }
+  .ticket-seat-select {
+    background-color: blue;
+    height: 400px;
+  }   
+}

@@ -37,7 +37,7 @@
         <span><%= @movie.rated %></span>  
       </div>
       <div style="margin-top: 20px;">
-        <%= link_to 'Mua vé',class: "btn-buy-ticket" %>
+        <%= link_to 'Mua vé', booking_ticket_path(@movie.id), class: "btn-buy-ticket" %>
       </div>
     </div>
   </div>
