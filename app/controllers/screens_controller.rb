@@ -5,7 +5,7 @@ class ScreensController < ApplicationController
   end
 
   def show
-    @show = Show.find(params[:id])
+    @show = Show.find(params[:show_id])
     @screen = Screen.find_by(id: @show.screen_id)
     @cinema_seats = CinemaSeat.where(screen_id: @screen.id)
   end
