@@ -37,15 +37,11 @@
       </center>
     </div>
     <div class="displayerBoxes">
-      <center>
-        <table class="Displaytable">
-          <tr>
-            <th style="text-align:center;">Cac ghe da dat</th>
-          </tr>
-          <tr>
-            <td><textarea id="seatsDisplay" style="text-align:center;"></textarea></td>
-          </tr>
-        </table>
+      <center id="seat-result-box" style="display:none;color: #222;">
+        <h3>Cac ghe da chon</h3>
+        <b id="seat-selected" style="text-align:center;color: #222;font-size: 18px;"></b>
+        <br>
+        <%= link_to 'Thanh toan', booking_tickets_path(@show.id), class: "btn btn-primary" %>
       </center>
     </div>
   </div>
@@ -57,7 +53,7 @@ function onLoaderFunc(){
 }
 
 function takeData(){
-  if ( $("#Numseats").val().length == 0 )
+  if ( $("#Numseats").val().length == 0 || $("#Numseats").val() < 0 )
   {
     alert("Hay nhap so luong ghe can dat!");
   }
@@ -65,8 +61,8 @@ function takeData(){
   {
     $(".inputForm *").prop("disabled", true);
     $(".seatStructure *").prop("disabled", false);
-    document.getElementById("notification").innerHTML = "<b style='margin-bottom:0px;background:yellow;font-size:20px;'>Hay lua chon cho ngoi!</b>";
-    document.getElementById('hidden-part').style.display = "block";
+    $("#notification").html("<b style='margin-bottom:0px;background:yellow;font-size:20px;'>Hay lua chon cho ngoi!</b>");
+    $("#hidden-part").show();
   }
 }
 
@@ -83,7 +79,10 @@ function updateTextArea(){
       allSeatsVals.push($(this).val());
     });
 
-    $('#seatsDisplay').val(allSeatsVals);
+    $('#seat-selected').text(allSeatsVals);
+    $('#seat-result-box').show();
+    localStorage.setItem("num_seat", allNumberVals);
+    localStorage.setItem("list_seats", allSeatsVals);
   }
   else
   {
@@ -100,5 +99,5 @@ $(":checkbox").click(function() {
   {
     $(":checkbox").prop('disabled', false);
   }
-});   
+});
 </script>

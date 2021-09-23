@@ -1,17 +1,16 @@
+<div class="time-select-cotent">
 <% if !@shows.first.nil? %>
-  <% @movies.each do |movie| %>
-    <%if @shows.first.movie_id == movie.id %>
-      <h1><%= movie.title %></h1>
-      <% @shows.each do |show| %>
-        <div>
-          <br>
-          <%= "Thoi gian bat dau: " + show.start_time %>
-          <br>
-          <%= "Thoi gian ket thuc: " + show.end_time %>
-        </div>
-      <% end -%>
+  <div class="poster">
+    <%= image_tag @movie.image_link, class: "img-thumbnail" %>
+  </div>
+  <% @shows.each do |show| %>
+    <%= link_to screen_path(show.id) do %>
+      <div class="time-select-btn">
+        <%= show.start_time + " - " + show.end_time %><br>
+        <%= show.date_show.strftime("%d - %m - %Y") %><br>
+        <%=  'Man hinh ' + show.screen_id.to_s %>
+      </div>
     <% end -%>
   <% end -%>
-<% else %>
-  <h1>Phim chua co lich chieu</h1>
 <% end -%>
+</div>

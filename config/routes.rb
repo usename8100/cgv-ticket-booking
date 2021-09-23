@@ -12,13 +12,16 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
   get '/signup', to: 'users#new'
   get '/movie_demo', to: 'movies#index'
-  get '/booking_ticket/:movie_id', to: 'booking_tickets#show'
-  get '/screen/:id', to: 'screens#show'
+  get '/movies/:movie_id/shows', to: 'shows#index', as: 'shows'
+  get '/shows/:show_id/screens/:id/show', to: 'screens#show', as: 'screens'
+  get '/shows/:show_id/booking_tickets/new', to: 'booking_tickets#new', as: 'booking_tickets'
 
-  resources :movies
-  resources :shows
-  resources :booking_tickets
-  resources :screens
+  resources :movies do 
+    resources :shows do 
+      resources :booking_tickets
+      resources :screens
+    end
+  end
   resources :users
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]

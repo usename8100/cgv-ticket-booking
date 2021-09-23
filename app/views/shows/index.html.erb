@@ -1,0 +1,19 @@
+<div class="time-select-cotent show-movie-details">
+  <h1 id="title-detail">Chon lich chieu phim</h1>
+  <div class="poster">
+    <%= image_tag @movie.image_link, class: "img-thumbnail" %>
+  </div>
+  <% if !@shows.first.nil? %>
+    <% @shows.each do |show| %>
+      <%= link_to screens_path(show.id, show.screen_id) do %>
+        <div class="time-select-btn">
+          <%= show.start_time + " - " + show.end_time %><br>
+          <%= show.date_show.strftime("%d - %m - %Y") %><br>
+          <%=  'Phong chieu so ' + show.screen_id.to_s %>
+        </div>
+      <% end -%>
+    <% end -%>
+  <% else %>
+    <h3 style="text-align:center;color: #222;">Phim chua co suat chieu nao</h3>
+  <% end -%>
+</div>
