@@ -1,0 +1,104 @@
+<body onload="onLoaderFunc()">
+  <div class="inputForm">
+      <center>
+        <span id="seat-num-label">Nhap so ghe: </span><input type="number" id="Numseats" required>
+        <button onclick="takeData()" class="btn btn-confirm">OK</button>
+      </center>
+    </div>
+    <div id="hidden-part">
+      <div class="seatStructure">
+        <center>
+          <p id="notification"></p>
+          <div class="screen">SCREEN</div>
+          <table id="seatsBlock">
+          <tr>
+            <td></td>
+            <% @cinema_seats.maximum('seat_no').times do |x| %>
+              <td><span style="margin-left: 10px;"><%= (x+1) %></span></td>
+            <% end -%>
+          </tr>
+          <% @cinema_seats.maximum('row').times do |x| %>
+            <tr>
+              <td style="padding-bottom:0"><span><%= (x+65).chr %></span></td>
+              <% @cinema_seats.each do |seat| %>
+                <% if seat.row == x+1 %>
+                  <td><input type="checkbox" class="seats" value="<%= (x+65).chr + seat.seat_no.to_s %>"></td>
+                <% end -%>
+              <% end -%>
+            </tr>
+          <% end -%>
+        </table>
+        <div class="label-seat-status">
+          <div class="smallBox greenBox"><span>Ghe vua chon</span></div>
+          <div class="smallBox redBox"><span>Ghe da duoc dat</span></div>
+          <div class="smallBox emptyBox"><span>Ghe co the dat</span></div>
+        </div>
+        <button onclick="updateTextArea()" class="btn btn-confirm">Luu ghe da chon</button>
+      </center>
+    </div>
+    <div class="displayerBoxes">
+      <center>
+        <table class="Displaytable">
+          <tr>
+            <th style="text-align:center;">Cac ghe da dat</th>
+          </tr>
+          <tr>
+            <td><textarea id="seatsDisplay" style="text-align:center;"></textarea></td>
+          </tr>
+        </table>
+      </center>
+    </div>
+  </div>
+</body>
+<script type="text/javascript">
+function onLoaderFunc(){
+  $(".seatStructure *").prop("disabled", true);
+  $(".displayerBoxes *").prop("disabled", true);
+}
+
+function takeData(){
+  if ( $("#Numseats").val().length == 0 )
+  {
+    alert("Hay nhap so luong ghe can dat!");
+  }
+  else
+  {
+    $(".inputForm *").prop("disabled", true);
+    $(".seatStructure *").prop("disabled", false);
+    document.getElementById("notification").innerHTML = "<b style='margin-bottom:0px;background:yellow;font-size:20px;'>Hay lua chon cho ngoi!</b>";
+    document.getElementById('hidden-part').style.display = "block";
+  }
+}
+
+function updateTextArea(){ 
+  if ($("input:checked").length == ($("#Numseats").val()))
+  {
+    $(".seatStructure *").prop("disabled", true);
+
+    var allNumberVals = [];
+    var allSeatsVals = [];
+
+    allNumberVals.push($("#Numseats").val());
+    $('#seatsBlock :checked').each(function() {
+      allSeatsVals.push($(this).val());
+    });
+
+    $('#seatsDisplay').val(allSeatsVals);
+  }
+  else
+  {
+    alert("Hay chon du " + ($("#Numseats").val()) + " cho ngoi!")
+  }
+}
+
+$(":checkbox").click(function() {
+  if ($("input:checked").length == ($("#Numseats").val())) {
+    $(":checkbox").prop('disabled', true);
+    $(':checked').prop('disabled', false);
+  }
+  else
+  {
+    $(":checkbox").prop('disabled', false);
+  }
+});   
+</script>

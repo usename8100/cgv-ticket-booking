@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_20_074116) do
+ActiveRecord::Schema.define(version: 2021_09_20_150625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,36 @@ ActiveRecord::Schema.define(version: 2021_09_20_074116) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "booking_tickets", force: :cascade do |t|
+    t.integer "seat_quantity"
+    t.integer "user_id"
+    t.integer "show_id"
+    t.boolean "status"
+    t.date "create_at"
+    t.integer "food_total_price"
+    t.integer "seat_total_price"
+    t.integer "total"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "cinema_seats", force: :cascade do |t|
+    t.integer "row"
+    t.integer "seat_no"
+    t.integer "screen_id"
+    t.integer "price"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "cinemas", force: :cascade do |t|
+    t.string "name"
+    t.integer "total_screen"
+    t.integer "city_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -75,6 +105,33 @@ ActiveRecord::Schema.define(version: 2021_09_20_074116) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "slug"
     t.index ["slug"], name: "index_movies_on_slug", unique: true
+  end
+
+  create_table "screens", force: :cascade do |t|
+    t.string "name"
+    t.integer "total_seat"
+    t.integer "cinema_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "seat_reserveds", force: :cascade do |t|
+    t.boolean "status"
+    t.integer "cinema_seat_id"
+    t.integer "booking_ticket_id"
+    t.integer "show_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "shows", force: :cascade do |t|
+    t.date "date_show"
+    t.string "start_time"
+    t.string "end_time"
+    t.integer "screen_id"
+    t.integer "movie_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
