@@ -1,21 +1,8 @@
 class BookingTicketsController < ApplicationController
   def new
+    @show = Show.find(params[:show_id])
+    @movie = Movie.find(@show.movie_id)
     @booking_ticket = BookingTicket.new
-    @movies = Movie.all
-    @shows = Show.where(movie_id: params[:id])
-  end
-  
-  def index
-    @movies = Movie.all
-    @shows = Show.where(movie_id: params[:id])
-  end
-
-  def show
-    @movies = Movie.all
-    @shows = Show.where(movie_id: params[:id])  
-  end
-
-  def edit
-    
+    @booking_ticket.show_id = @show.id
   end
 end

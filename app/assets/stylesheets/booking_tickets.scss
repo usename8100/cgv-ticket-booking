@@ -14,3 +14,37 @@
     height: 400px;
   }   
 }
+
+.time-select-cotent {
+  max-width: 980px;
+  margin: 0 auto;
+  h2 {
+    color: #222;
+    border-bottom: 2px solid #222;
+  }
+}
+
+.time-select-btn {
+  border: 2px solid #FFFFFF;
+  display: inline-block;
+  padding: 10px;
+  border-radius: 30%;
+  margin: 20px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: Verdana, Arial, sans-serif;
+  color: #222;
+  line-height: 25px;
+  &:hover {
+    border-color: #222;
+  }
+}
+
+.poster {
+      float: left;
+      height: 370px;
+      img {
+        width: 250px;
+      }
+    }

@@ -1,11 +1,11 @@
 class ShowsController < ApplicationController
   def index
-    @movies = Movie.all
-    @shows = Show.where(movie_id: params[:id])
+    @movie = Movie.find(params[:movie_id])
+    @shows = Show.where(movie_id: params[:movie_id])
   end
 
   def show
-    @movies = Movie.all
+    @movie = Movie.find(params[:movie_id])
     @shows = Show.where(movie_id: params[:id])
   end
 end
