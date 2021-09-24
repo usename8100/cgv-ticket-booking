@@ -41,7 +41,7 @@
         <h3>Cac ghe da chon</h3>
         <b id="seat-selected" style="text-align:center;color: #222;font-size: 18px;"></b>
         <br>
-        <%= link_to 'Thanh toan', booking_tickets_path(@show.id), class: "btn btn-primary" %>
+        <%= link_to 'Thanh toan', booking_tickets_path(@show.id, @show.screen_id), class: "btn btn-primary" %>
       </center>
     </div>
   </div>

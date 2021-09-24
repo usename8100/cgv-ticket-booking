@@ -14,7 +14,8 @@ Rails.application.routes.draw do
   get '/movie_demo', to: 'movies#index'
   get '/movies/:movie_id/shows', to: 'shows#index', as: 'shows'
   get '/shows/:show_id/screens/:id/show', to: 'screens#show', as: 'screens'
-  get '/shows/:show_id/booking_tickets/new', to: 'booking_tickets#new', as: 'booking_tickets'
+  get '/shows/:show_id/screens/:screen_id/booking_tickets/new', to: 'booking_tickets#new', as: 'booking_tickets'
+  post '/shows/:show_id/screens/:id/booking_tickets/new', to: 'booking_tickets#create'
 
   resources :movies do 
     resources :shows do 

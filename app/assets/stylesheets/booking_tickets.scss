@@ -42,9 +42,13 @@
 }
 
 .poster {
-      float: left;
-      height: 370px;
-      img {
-        width: 250px;
-      }
-    }
+  float: left;
+  height: 370px;
+  img {
+    width: 250px;
+  }
+}
+
+#new-ticket {
+  margin-top: 30px;
+}
