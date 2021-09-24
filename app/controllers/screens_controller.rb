@@ -1,4 +1,6 @@
 class ScreensController < ApplicationController
+  before_action :logged_in_user, only: [:show]
+  
   def index
     @screens = Screen.where(id: params[:id])
     @cinema_seats = CinemaSeat.where(screen_id: @screens.id)

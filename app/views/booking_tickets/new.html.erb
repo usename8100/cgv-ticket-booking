@@ -1,28 +1,57 @@
 <div class="show-movie-details">
   <h1 id="title-detail">Thanh toán</h1>
-  <div class="poster" style="margin-right: 30px;">
-    <%= image_tag @movie.image_link, class: "img-thumbnail" %>
+  <div class="container">
+    <div class="row">
+      <div class="poster col-sm-3">
+        <%= image_tag @movie.image_link, class: "img-thumbnail" %>
+      </div>
+      <div id="new-ticket" class="col-sm-9">
+        <h3><p><%= "Phim: " + @movie.title %></p></h3>
+        <h3><p><%= "Thoi luong: " + @movie.length.to_s + " phut" %></p></h3>
+        <h3><p><%= "Thoi gian chieu phim: " + @show.start_time + " - " + @show.end_time %></p></h3>
+        <h3><p id="p_num_seat"></p></h3>
+        <h3><p id="p_seat"></p></h3>
+        <h3><p id="p_seat_price"></p></h3>
+
+        <%= form_with(model: @booking_ticket) do |form| %>
+        <%= form.hidden_field :seat_quantity, id: "f_seat_quan" %>
+        <%= form.hidden_field :seat_ids, id: "f_seat_ids" %>
+        <%= form.submit "Thanh toan", class: "btn btn-primary " %>
+        <% end -%>  
+      </div>
+    </div>
+    <div class="food-list">
+      <center><h2>Chon them do an</h2></center>
+
+      <% @foods.each do |food| %>
+      <div class="food-item">
+        <%= image_tag food.image_link %>
+        <div class="lower-area">
+          <center>
+            <span><%= food.name %></span>
+            <span style="font-size: 20px;">Gia: <%= food.price %>.000 VND</span>
+            <div class="quan-change">
+              <button class="btn btn-primary">-</button>
+              <input type="number" name="quantity" style="">
+              <button class="btn btn-primary">+</button>
+            </div>
+          </center>
+        </div>
+      </div>
+      <% end -%>
+    </div>
   </div>
-	<div id="new-ticket">
-		<h3><p><%= "Phim: " + @movie.title %></p></h3>
-		<h3><p><%= "Thoi luong: " + @movie.length.to_s + " phut" %></p></h3>
-		<h3><p><%= "Thoi gian chieu phim: " + @show.start_time + " - " + @show.end_time %></p></h3>
-		<h3><p id="p_num_seat"></p></h3>
-		<h3><p id="p_seat"></p></h3>
-	</div>
-
-  <%= form_with(model: @booking_ticket) do |form| %>
-    <%= form.hidden_field :seat_quantity, id: "f_seat_quan" %>
-    <%= form.hidden_field :seat_ids, id: "f_seat_ids" %>
-    <%= form.submit "Thanh toan", class: "btn btn-primary " %>
-  <% end -%>
 </div>
-<script type="text/javascript">
-	var num_seat = localStorage.getItem("num_seat");
-	var list_seats = localStorage.getItem("list_seats");
 
-	$("#p_num_seat").html("So ghe da dat: " + num_seat);
-	$("#p_seat").html("Ghe da dat: " + list_seats);
-	$("#f_seat_quan").val(num_seat);
-	$("#f_seat_ids").val(list_seats);
+
+<script type="text/javascript">
+  var num_seat = localStorage.getItem("num_seat");
+  var list_seats = localStorage.getItem("list_seats");
+  var seat_price = localStorage.getItem("seat_price");
+
+  $("#p_num_seat").html("So ghe da dat: " + num_seat);
+  $("#p_seat").html("Ghe da dat: " + list_seats);
+  $("#p_seat_price").html("Tong gia ve: " + seat_price);
+  $("#f_seat_quan").val(num_seat);
+  $("#f_seat_ids").val(list_seats);
 </script>

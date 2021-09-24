@@ -22,7 +22,7 @@
               <td style="padding-bottom:0"><span><%= (x+65).chr %></span></td>
               <% @cinema_seats.each do |seat| %>
                 <% if seat.row == x+1 %>
-                  <td><input type="checkbox" class="seats" value="<%= (x+65).chr + seat.seat_no.to_s %>"></td>
+                  <td><input type="checkbox" class="seats" value="<%= (x+65).chr + seat.seat_no.to_s %>" data-seatprice="<%= seat.price %>"></td>
                 <% end -%>
               <% end -%>
             </tr>
@@ -40,6 +40,8 @@
       <center id="seat-result-box" style="display:none;color: #222;">
         <h3>Cac ghe da chon</h3>
         <b id="seat-selected" style="text-align:center;color: #222;font-size: 18px;"></b>
+        <br><h3>Tong gia ve</h3>
+        <b id="seat-total-price" style="text-align:center;color: #222;font-size: 18px;"></b>
         <br>
         <%= link_to 'Thanh toan', booking_tickets_path(@show.id, @show.screen_id), class: "btn btn-primary" %>
       </center>
@@ -73,16 +75,20 @@ function updateTextArea(){
 
     var allNumberVals = [];
     var allSeatsVals = [];
+    var seatTotalPrice = 0;
 
     allNumberVals.push($("#Numseats").val());
     $('#seatsBlock :checked').each(function() {
       allSeatsVals.push($(this).val());
+      seatTotalPrice += $('#seatsBlock :checked').data('seatprice');
     });
 
     $('#seat-selected').text(allSeatsVals);
+    $('#seat-total-price').text(seatTotalPrice);
     $('#seat-result-box').show();
     localStorage.setItem("num_seat", allNumberVals);
     localStorage.setItem("list_seats", allSeatsVals);
+    localStorage.setItem("seat_price", seatTotalPrice);
   }
   else
   {
