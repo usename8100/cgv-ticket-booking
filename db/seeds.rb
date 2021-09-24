@@ -58,3 +58,7 @@ end
     CinemaSeat.create(row: x+1, seat_no: z+1, screen_id: 1, price: 100)
   end
 end
+
+Food.create(name: "Bắp Vị Phô Mai", price: "74", image_link: "https://images.foody.vn/res/g78/773533/s/2018122116170-bap-pho-mai-lon.jpg")
+Food.create(name: "Nước Ngọt Tươi", price: "38", image_link: "https://images.foody.vn/res/g78/773533/s/20181221161746-nuoc-ngot-lon.jpg")
+Food.create(name: "Trà Sữa Đặc Biệt", price: "35", image_link: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOdu5V8pZw76eM2-1LfPVXT02UAXIGWkXJjA&usqp=CAU")

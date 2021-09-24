@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_20_150625) do
+ActiveRecord::Schema.define(version: 2021_09_24_041149) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,23 @@ ActiveRecord::Schema.define(version: 2021_09_20_150625) do
     t.string "name"
     t.integer "total_screen"
     t.integer "city_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "detail_food_orders", force: :cascade do |t|
+    t.integer "booking_ticket_id"
+    t.integer "food_id"
+    t.integer "quantity"
+    t.integer "total"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "foods", force: :cascade do |t|
+    t.string "name"
+    t.integer "price"
+    t.text "image_link"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

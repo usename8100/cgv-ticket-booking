@@ -4,6 +4,7 @@ class BookingTicketsController < ApplicationController
     @movie = Movie.find(@show.movie_id)
     @booking_ticket = BookingTicket.new
     @booking_ticket.show_id = @show.id
+    @foods = Food.all
   end
 
   def create
