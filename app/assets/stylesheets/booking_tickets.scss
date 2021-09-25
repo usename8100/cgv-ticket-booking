@@ -51,21 +51,28 @@
 
 .food-list {
   color: #222;
+  max-width: 60%;
   h2 {
-    height: 30px;
-    border-bottom: 1px solid #222;
+    height: 10%;
+    border-bottom: 2px solid #222;
     padding-bottom: 15px;
     margin-bottom: 20px;
+    max-width: 85%;
   }
   .food-item {
-    width:200px;
-    border: 1px solid #222;
+    width:13%;
+    border: 8px solid #222;
+    border-radius: 25px;
     margin: 0 5px;
     display: inline-block;
-    height: 400px;
+    height: 30%;
+    min-width: 200px;
     img {
       clear: both;
       width: 100%;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      border-bottom: 3px solid red;
     }
     .lower-area {
       height: 40%;
@@ -74,16 +81,65 @@
         font-size: 25px;
         line-height: 29px;
         font-weight: 600;
+        display: block;
       }
       .quan-change {
         input {
           width: 50%;
           font-size: 25px;
+          border-radius: 20%;
+          text-align: center;
         }
-        .btn {
-          width: 25%;
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+        input[type=number] {
+          -moz-appearance: textfield;
+        }
+        button {
+          font-size: 30px;
+          font-weight: 600;
+          line-height: 20px;
+          border-radius: 50%;
+          margin-bottom: 10px;
         }
       }
     }
   }
+}
+
+.left-side-order {
+  padding: 15px;
+  background-color: #ffffff;
+  margin-bottom: 8px;
+  border-radius: 4px;
+}
+
+.right-side-order {
+  div {
+    padding: 15px;
+    background-color: #ffffff;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    span {
+      display: block;
+    }
+    h3 {
+      margin-top: 0;
+      color: #222;
+      font-weight: 600;
+      font-size: 20px;
+    }
+  }
+  .btn {
+    font-weight: 600;
+    font-size: 20px;
+    height: auto;
+  }
+}
+
+#total_food_price, #seat_price_right, #total_price_right {
+  color: red;
 }
