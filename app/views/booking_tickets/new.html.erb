@@ -2,56 +2,149 @@
   <h1 id="title-detail">Thanh toán</h1>
   <div class="container">
     <div class="row">
-      <div class="poster col-sm-3">
-        <%= image_tag @movie.image_link, class: "img-thumbnail" %>
-      </div>
-      <div id="new-ticket" class="col-sm-9">
-        <h3><p><%= "Phim: " + @movie.title %></p></h3>
-        <h3><p><%= "Thoi luong: " + @movie.length.to_s + " phut" %></p></h3>
-        <h3><p><%= "Thoi gian chieu phim: " + @show.start_time + " - " + @show.end_time %></p></h3>
-        <h3><p id="p_num_seat"></p></h3>
-        <h3><p id="p_seat"></p></h3>
-        <h3><p id="p_seat_price"></p></h3>
-
-        <%= form_with(model: @booking_ticket) do |form| %>
-        <%= form.hidden_field :seat_quantity, id: "f_seat_quan" %>
-        <%= form.hidden_field :seat_ids, id: "f_seat_ids" %>
-        <%= form.submit "Thanh toan", class: "btn btn-primary " %>
-        <% end -%>  
-      </div>
-    </div>
-    <div class="food-list">
-      <center><h2>Chon them do an</h2></center>
-
-      <% @foods.each do |food| %>
-      <div class="food-item">
-        <%= image_tag food.image_link %>
-        <div class="lower-area">
-          <center>
-            <span><%= food.name %></span>
-            <span style="font-size: 20px;">Gia: <%= food.price %>.000 VND</span>
-            <div class="quan-change">
-              <button class="btn btn-primary">-</button>
-              <input type="number" name="quantity" style="">
-              <button class="btn btn-primary">+</button>
+      <div class="left-side-order col-sm-7">
+        <div class="container">
+          <div class="row">
+            <div class="poster col-sm-3">
+              <%= image_tag @movie.image_link, class: "img-thumbnail" %>
             </div>
-          </center>
+            <div id="new-ticket" class="col-sm-9">
+              <h3><p><%= "Phim: " + @movie.title %></p></h3>
+              <h3><p><%= "Thoi luong: " + @movie.length.to_s + " phut" %></p></h3>
+              <h3><p><%= "Lich chieu phim: " + @show.start_time + " - " + @show.end_time %></p></h3>
+            </div>
+          </div>
+          <div class="food-list">
+            <center><h2>Chon them do an</h2></center>
+            <% @foods.each do |food| %>
+            <div class="food-item">
+              <%= image_tag food.image_link %>
+              <div class="lower-area">
+                <center>
+                  <span id="food_name"><%= food.name %></span>
+                  <span style="font-size: 20px;">Gia: <%= food.price %>.000 VND</span>
+                  <div class="quan-change">
+                    <button class="btn btn-primary btn_decrease" data-field="<%= food.id %>" >-</button>
+                    <input type="number" name="<%= food.id %>" class="food_quan" data-field="<%= food.id %>" value="0" min="0" data-price="<%= food.price %>" data-name="<%= food.name %>" >
+                    <button class="btn btn-primary btn_increase" data-field="<%= food.id %>" >+</button>
+                  </div>
+                </center>
+              </div>
+            </div>
+            <% end -%>
+          </div>
         </div>
       </div>
-      <% end -%>
+
+      <div class="right-side-order col-sm-3">
+        <div>
+          <h3>Thong tin ve</h3>
+          <div style="max-width: 35%;display: inline-block;padding: 0;">
+            <span style="float:right;">Ve da dat: </span>
+            <span style="float:right;">Thanh tien: </span>            
+          </div>
+          <div style="max-width: 65%;float: right;padding: 0 10px 10px 10px">
+            <span style="float:left;" id="list_seat_right">0</span><br>
+            <span style="float:left;" id="seat_price_right">0 VND</span>            
+          </div>        
+        </div>
+        <div>
+          <h3>Thong tin do an</h3>
+          <div style="max-width: 35%;display: inline-block;padding: 0;">
+            <span style="float:right;">Do an: </span>
+            <span style="float:right;">Thanh tien: </span>            
+          </div>
+          <div style="max-width: 65%;float: right;padding: 0 10px 10px 10px">
+            <span style="float:left;" id="list_food">0</span><br>
+            <span style="float:left;" id="total_food_price">0 VND</span>            
+          </div>
+        </div>
+        <div>
+          <h3>Thong tin do an</h3>
+          <div style="max-width: 35%;display: inline-block;padding: 0;">
+            <span style="float:right;">Giam gia: </span>
+            <span style="float:right;">Tong cong: </span>            
+          </div>
+          <div style="max-width: 65%;float: right;padding: 0 10px 10px 10px">
+            <span style="float:left;">0</span><br>
+            <span style="float:left;" id="total_price_right">0 VND</span>            
+          </div>
+        </div>
+
+        <%= form_with(model: @booking_ticket) do |form| %>
+          <%= form.hidden_field :seat_quantity, id: "f_seat_quan" %>
+          <%= form.hidden_field :seat_ids, id: "f_seat_ids" %>
+          <%= form.hidden_field :total_seat_price, id: "f_seat_total" %>
+          <%= form.hidden_field :total_food_price, id: "f_food_total" %>
+          <%= form.hidden_field :food_ids, id: "f_food_ids" %>
+          <%= form.hidden_field :food_quans, id: "f_food_quans" %>
+          <%= form.submit "Thanh toan", class: "btn btn-primary form-control" %>
+        <% end -%>
+      </div>
     </div>
   </div>
 </div>
-
 
 <script type="text/javascript">
   var num_seat = localStorage.getItem("num_seat");
   var list_seats = localStorage.getItem("list_seats");
   var seat_price = localStorage.getItem("seat_price");
 
-  $("#p_num_seat").html("So ghe da dat: " + num_seat);
-  $("#p_seat").html("Ghe da dat: " + list_seats);
-  $("#p_seat_price").html("Tong gia ve: " + seat_price);
+  $('#total_price_right').html(seat_price + ".000 VND");
+
   $("#f_seat_quan").val(num_seat);
   $("#f_seat_ids").val(list_seats);
+
+  $('#list_seat_right').html(list_seats + " (" + num_seat+ " ve)");
+  $('#seat_price_right').html(seat_price + ".000 VND");
+
+  $(".btn_decrease").click(function(){
+    fieldName = $(this).attr('data-field');
+    var input = $("input[name='"+ fieldName +"']");
+    var currentVal = parseInt(input.val());
+    if($(input).val().length == 0 || $(input).val() < 0 || $(input).val() == 0)
+      $(input).val(0);
+    else
+      input.val(currentVal - 1).change();
+  })
+
+  $(".btn_increase").click(function(){
+    fieldName = $(this).attr('data-field');
+    var input = $("input[name='"+ fieldName +"']");
+    var currentVal = parseInt(input.val());
+    if($(input).val().length == 0 || $(input).val() < 0)
+      $(input).val(1);
+    else
+      input.val(currentVal + 1).change();
+  })
+
+  $('input[class="food_quan"]').change(function() {
+    var listFoodName = [];
+    var listFoodId = [];
+    var listFoodQuan = [];
+    var foodTotalPrice = 0;
+
+    $('input[class="food_quan"]').each(function() {
+      if(parseInt($(this).val()) > 0) {
+
+        var price = $(this).data("price");
+        var quan = $(this).val();
+        listFoodName.push($(this).data("name") + " x" + quan + "<br>");
+        listFoodId.push($(this).data("field"));
+        listFoodQuan.push(quan);
+        foodTotalPrice += (price*quan);
+      }
+    });
+
+    $("#f_food_ids").val(listFoodId);
+    $("#f_food_quans").val(listFoodQuan);
+    $("#f_food_total").val(foodTotalPrice);
+    $("#f_seat_total").val(seat_price);
+
+    $('#list_food').html(listFoodName);
+    $('#total_food_price').html(foodTotalPrice + ".000 VND");
+
+    var totalPrice = parseInt(foodTotalPrice) + parseInt(seat_price);
+    $('#total_price_right').html(totalPrice + ".000 VND");
+  });
 </script>

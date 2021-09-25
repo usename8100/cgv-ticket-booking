@@ -4,5 +4,4 @@ class BookingTicket < ApplicationRecord
   has_many :cinema_seats, through: :seat_reserveds
   belongs_to :user
   has_many :detail_food_orders
-  has_many :foods, through: :detail_food_orders
 end
