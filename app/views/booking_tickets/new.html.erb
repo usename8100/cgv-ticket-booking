@@ -37,7 +37,7 @@
       </div>
 
       <div class="right-side-order col-sm-3">
-        <div>
+        <div class="md_div" style="height: 130px;">
           <h3>Thong tin ve</h3>
           <div style="max-width: 35%;display: inline-block;padding: 0;">
             <span style="float:right;">Ve da dat: </span>
@@ -48,7 +48,7 @@
             <span style="float:left;" id="seat_price_right">0 VND</span>            
           </div>        
         </div>
-        <div>
+        <div class="md_div" style="height: 140px;">
           <h3>Thong tin do an</h3>
           <div style="max-width: 35%;display: inline-block;padding: 0;">
             <span style="float:right;">Do an: </span>
@@ -59,7 +59,7 @@
             <span style="float:left;" id="total_food_price">0 VND</span>            
           </div>
         </div>
-        <div>
+        <div class="md_div">
           <h3>Thong tin do an</h3>
           <div style="max-width: 35%;display: inline-block;padding: 0;">
             <span style="float:right;">Giam gia: </span>
@@ -92,6 +92,7 @@
 
   $('#total_price_right').html(seat_price + ".000 VND");
 
+  $("#f_seat_total").val(parseInt(seat_price));
   $("#f_seat_quan").val(num_seat);
   $("#f_seat_ids").val(list_seats);
 
@@ -139,10 +140,11 @@
     $("#f_food_ids").val(listFoodId);
     $("#f_food_quans").val(listFoodQuan);
     $("#f_food_total").val(foodTotalPrice);
-    $("#f_seat_total").val(seat_price);
 
     $('#list_food').html(listFoodName);
     $('#total_food_price').html(foodTotalPrice + ".000 VND");
+
+    localStorage.setItem("food_price", foodTotalPrice);
 
     var totalPrice = parseInt(foodTotalPrice) + parseInt(seat_price);
     $('#total_price_right').html(totalPrice + ".000 VND");

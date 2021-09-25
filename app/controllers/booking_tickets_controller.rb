@@ -7,6 +7,24 @@ class BookingTicketsController < ApplicationController
     @foods = Food.all
   end
 
+  def show
+    @booking_ticket = BookingTicket.find(params[:id])
+    @show = Show.find(@booking_ticket.show_id)
+    @movie = Movie.find(@show.movie_id)
+    @screen = Screen.find(@show.screen_id)
+    @cinema = Cinema.find(@screen.cinema_id)
+    @seat_reserveds = SeatReserved.where(booking_ticket_id: @booking_ticket.id)
+    @cinema_seats = CinemaSeat.all
+    @detail_food_orders = DetailFoodOrder.where(booking_ticket_id: @booking_ticket.id)
+    @foods = Food.all
+  end
+
+  def index
+    @booking_tickets = BookingTicket.where(user_id: current_user.id)
+    @shows = Show.all
+    @movies = Movie.all
+  end
+
   def create
     seat_quantity = params[:booking_ticket][:seat_quantity]
     seat_name_str = params[:booking_ticket][:seat_ids]
@@ -33,8 +51,14 @@ class BookingTicketsController < ApplicationController
       seat_name_str.split(",").each do |c_seat_name|
         @seat_reserved = SeatReserved.new
         CinemaSeat.all.each do |seat|
-          if (seat.row == (c_seat_name.first.ord - 64) and seat.seat_no == c_seat_name.last.to_i) and seat.screen_id == show.screen_id
-            @seat_reserved.cinema_seat_id = seat.id
+          if c_seat_name.length == 3
+            if (seat.row == (c_seat_name[0].ord - 64) and seat.seat_no == (c_seat_name[1].to_s + c_seat_name[2].to_s).to_i) and seat.screen_id == show.screen_id
+              @seat_reserved.cinema_seat_id = seat.id
+            end
+          else
+            if (seat.row == (c_seat_name[0].ord - 64) and seat.seat_no == c_seat_name[1].to_i) and seat.screen_id == show.screen_id
+              @seat_reserved.cinema_seat_id = seat.id
+            end
           end
         end
         @seat_reserved.show_id = params[:show_id]
@@ -73,5 +97,20 @@ class BookingTicketsController < ApplicationController
       flash[:danger] = "Đặt vé khong thành công.\n"
       redirect_to root_url 
     end
+  end
+
+  def send_ticket
+    ticket_id = params[:id]
+    if TicketMailer.ticket_mailer(current_user, ticket_id).deliver_now
+      flash[:info] = "Gui hoa don den dia chi email thanh cong.\n"
+      respond_to do |format|
+        format.html { redirect_to request.referrer }
+      end
+    else
+      flash[:danger] = "Gui hoa don den dia chi email KHONG thanh cong!\n"
+      respond_to do |format|
+        format.html { redirect_to request.referrer }
+      end
+    end  
   end
 end

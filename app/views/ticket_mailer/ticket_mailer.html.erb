@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <style type="text/css">
+      .ticket-detail {
+        background-repeat: no-repeat;
+        background-size: 100%;
+        height: 500px;
+        padding: 60px 120px;
+        min-width: 980px;
+      }
+      .ticket-detail .ticket-detail-right .display-food-left {
+        width: 20%;
+        display: inline-block;
+      }
+      .ticket-detail .ticket-detail-right .display-food-right {
+        width: 80%;
+        float: right;
+        clear: both;
+      }
+      .ticket-detail h2 {
+        font-family: "Sofia", sans-serif;
+        color: #222;
+        width: 90%;
+        text-align: center;
+        margin-top: 0;
+        font-size: 50px;
+        margin-bottom: 40px;
+      }
+      .ticket-detail span {
+        display: block;
+        color: #222;
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 35px;
+      }
+      .ticket-detail .ticket-detail-left {
+        width: 50%;
+        display: inline-block;
+        float: left;
+      }
+      .ticket-detail .ticket-detail-right {
+        width: 50%;
+        display: inline-block;
+      } 
+    </style>
+  </head>
+  <body>
+    <h1>Hi <%= @user.name %></h1>
+    <h3>Ban nhan duoc mot ticket tu CGV co thong tin nhu sau:</h3>
+    <% if @booking_ticket.food_total_price != 0 %>
+      <div class="ticket-detail">
+        <span style="font-size:16px;font-weight: 300;position: absolute;line-height: 20px;">Ma hoa don: <%= @booking_ticket.id %><br>Ngay dat: <%= @booking_ticket.created_at.strftime("%d.%m.%Y") %></span>
+        <h2><%= @movie.title %></h2>
+        <div class="ticket-detail-left" >
+          <span>Gio chieu: <%= @show.start_time + "-" +@show.end_time + " " + @show.date_show.strftime("%d.%m.%Y") %></span>
+          <span>Rap phim: <%= @cinema.name %></span>
+          <span>Phong chieu <%= @screen.name %></span>
+          <span style="display:inline;">Ve da dat: </span>
+          <% @seat_reserveds.each do |seat_rs|%>
+            <% @cinema_seats.each do |c_seat| %>
+              <% if seat_rs.cinema_seat_id == c_seat.id %>
+                <span style="display: inline;"><%= (c_seat.row + 64).chr + c_seat.seat_no.to_s %></span>
+              <% end -%>
+            <% end -%>
+          <% end -%>
+          <span>Tien ve: <%= @booking_ticket.seat_total_price.to_s + ".000 VND" %></span>
+        </div>
+          <div class="ticket-detail-right">
+            <span class="display-food-left">Do an: </span>
+            <div class="display-food-right">
+              <% @detail_food_orders.each do |d_food|%>
+                <% @foods.each do |food| %>
+                  <% if d_food.food_id == food.id %>
+                    <span><%= food.name + " x" + d_food.quantity.to_s %></span>
+                  <% end -%>
+                <% end -%>
+              <% end -%>
+            </div>
+            <span style="clear: both;" id="food_price" data-price="<%= @booking_ticket.food_total_price %>">Tien do an: <%= @booking_ticket.food_total_price.to_s + ".000 VND" %></span>
+          </div>    
+
+        <center>
+          <span style="clear: both;font-size: 30px;line-height: 60px;">Tong thanh toan: <%= @booking_ticket.total.to_s + ".000 VND" %></span>
+        </center>
+      </div>
+    <% else %>
+      <div class="ticket-detail">
+        <span style="font-size:16px;font-weight: 300;position: absolute;line-height: 20px;">Ma hoa don: <%= @booking_ticket.id %><br>Ngay dat: <%= @booking_ticket.created_at.strftime("%d.%m.%Y") %></span>
+        <h2><%= @movie.title %></h2>
+        <div class="ticket-detail-left" style="margin-left: 35%">
+          <span>Gio chieu: <%= @show.start_time + "-" +@show.end_time + " " + @show.date_show.strftime("%d.%m.%Y") %></span>
+          <span>Rap phim: <%= @cinema.name %></span>
+          <span>Phong chieu <%= @screen.name %></span>
+          <span style="display:inline;">Ve da dat: </span>
+          <% @seat_reserveds.each do |seat_rs|%>
+            <% @cinema_seats.each do |c_seat| %>
+              <% if seat_rs.cinema_seat_id == c_seat.id %>
+                <span style="display: inline;"><%= (c_seat.row + 64).chr + c_seat.seat_no.to_s %></span>
+              <% end -%>
+            <% end -%>
+          <% end -%>
+          <span>Tien ve: <%= @booking_ticket.seat_total_price.to_s + ".000 VND" %></span>
+        </div>
+        <center>
+          <span style="clear: both;font-size: 30px;line-height: 60px;">Tong thanh toan: <%= @booking_ticket.total.to_s + ".000 VND" %></span>
+        </center>
+      </div>
+    <% end -%>
+  </body>
+</html>
