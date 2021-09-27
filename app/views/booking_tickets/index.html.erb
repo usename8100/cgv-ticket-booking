@@ -1,0 +1,77 @@
+<div class="main">
+  <div class="col-left sidebar col-left-first">
+    <div class="block block-account">
+      <div class="block-title">
+        <strong><span>Tài khoản CGV</span></strong>
+      </div>
+      <div class="block-content">
+        <ul>
+          <li>
+            <%= link_to 'Thông tin chung', current_user %>
+          </li>
+          <li>
+            <%= link_to 'Chi tiết tài khoản', edit_user_path(current_user) %>
+          </li>
+          <li class="current">
+            <%= link_to 'Lịch sử giao dịch', tickets_path %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-main">
+    <div class="my-account">
+      <div class="dashboard">
+        <div class="page-title">
+          <h1>Lich su giao dich</h1>
+        </div>
+        <div class="format-profile-cgv row">
+          <% if !@booking_tickets.first.nil? %>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Ten phim</th>
+                  <th scope="col">Ngay chieu</th>
+                  <th scope="col">Thoi gian dat ve</th>
+                  <th scope="col">Trang thai</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody style="text-align:left;">
+                <% @booking_tickets.each do |ticket| %>
+                  <tr>
+                    <% @shows.each do |show| %>
+                      <% if show.id == ticket.show_id %>
+                        <% @movies.each do |movie| %>
+                          <% if movie.id == show.movie_id %>
+                            <td><%= movie.title %></td>
+                          <% end -%>
+                        <% end -%>
+                        <td><%= show.date_show.strftime("%d-%m-%Y") %></td>
+                      <% end -%>
+                    <% end -%>
+                    <td><%= ticket.created_at.strftime("%H:%M %d-%m-%Y") %></td>
+                    <% @shows.each do |show| %>
+                      <% if ticket.show_id == show.id %>
+                        <% if Date.today > show.date_show %>
+                          <td>Da xem</td>
+                        <% else %>
+                          <td>Chua xem</td>
+                        <% end -%>                      
+                      <% end -%>
+                    <% end -%>
+                    <td>
+                      <%= link_to 'Xem ve', show_ticket_path(ticket.id), class:"btn btn-primary" %>
+                    </td>
+                  </tr>
+                <% end -%>
+              </tbody>
+            </table>
+          <% else %>
+            <center><h2>Ban chua co giao dich nao.</h2></center>
+          <% end -%>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

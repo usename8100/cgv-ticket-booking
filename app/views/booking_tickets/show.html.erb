@@ -1,0 +1,51 @@
+<div class="ticket-show-main">
+   <%= link_to "<< Quay lai", 'javascript:history.back()' %>
+  <div class="ticket-detail">
+    <span style="font-size:16px;font-weight: 300;position: absolute;line-height: 20px;">Ma hoa don: <%= @booking_ticket.id %><br>Ngay dat: <%= @booking_ticket.created_at.strftime("%d.%m.%Y") %></span>
+    <h2><%= @movie.title %></h2>
+    <div class="ticket-detail-left" id="hihi">
+      <span>Gio chieu: <%= @show.start_time + "-" +@show.end_time + " " + @show.date_show.strftime("%d.%m.%Y") %></span>
+      <span>Rap phim: <%= @cinema.name %></span>
+      <span>Phong chieu <%= @screen.name %></span>
+      <span style="display:inline;">Ve da dat: </span>
+      <% @seat_reserveds.each do |seat_rs|%>
+        <% @cinema_seats.each do |c_seat| %>
+          <% if seat_rs.cinema_seat_id == c_seat.id %>
+            <span style="display: inline;"><%= (c_seat.row + 64).chr + c_seat.seat_no.to_s %></span>
+          <% end -%>
+        <% end -%>
+      <% end -%>
+      <span>Tien ve: <%= @booking_ticket.seat_total_price.to_s + ".000 VND" %></span>
+    </div>
+      <div class="ticket-detail-right">
+        <span class="display-food-left">Do an: </span>
+        <div class="display-food-right">
+          <% @detail_food_orders.each do |d_food|%>
+            <% @foods.each do |food| %>
+              <% if d_food.food_id == food.id %>
+                <span><%= food.name + " x" + d_food.quantity.to_s %></span>
+              <% end -%>
+            <% end -%>
+          <% end -%>
+        </div>
+        <span style="clear: both;" id="food_price" data-price="<%= @booking_ticket.food_total_price %>">Tien do an: <%= @booking_ticket.food_total_price.to_s + ".000 VND" %></span>
+      </div>    
+
+    <center>
+      <span style="clear: both;font-size: 30px;line-height: 60px;">Tong thanh toan: <%= @booking_ticket.total.to_s + ".000 VND" %></span>
+    </center>
+  </div>
+  <center>
+    <%= link_to 'Gui ticket den email', send_ticket_path, class:"btn btn-primary" %>
+  </center>
+</div>
+<script type="text/javascript">
+  $( document ).ready(function() {
+    var foodPrice = $("#food_price").data('price');
+
+    if (parseInt(foodPrice) == 0) {
+      $(".ticket-detail-right").hide();
+      $(".ticket-detail-left").css('margin-left','20%');
+    }
+  });
+</script>
