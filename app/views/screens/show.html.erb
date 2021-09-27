@@ -22,7 +22,11 @@
               <td style="padding-bottom:0"><span><%= (x+65).chr %></span></td>
               <% @cinema_seats.each do |seat| %>
                 <% if seat.row == x+1 %>
-                  <td><input type="checkbox" class="seats" value="<%= (x+65).chr + seat.seat_no.to_s %>" data-seatprice="<%= seat.price %>"></td>
+                  <% if seat.id.in?(@seat_reserved_ids) %>
+                    <td><span class="seat_reserved"><input type="checkbox"><span></td>
+                  <% else %>
+                    <td><input type="checkbox" class="seats" value="<%= (x+65).chr + seat.seat_no.to_s %>" data-seatprice="<%= seat.price %>"></td>
+                  <% end -%>
                 <% end -%>
               <% end -%>
             </tr>
@@ -63,6 +67,7 @@ function takeData(){
   {
     $(".inputForm *").prop("disabled", true);
     $(".seatStructure *").prop("disabled", false);
+    $(".seat_reserved *").prop("disabled", true);
     $("#notification").html("<b style='margin-bottom:0px;background:yellow;font-size:20px;'>Hay lua chon cho ngoi!</b>");
     $("#hidden-part").show();
   }

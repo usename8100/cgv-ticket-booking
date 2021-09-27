@@ -10,6 +10,8 @@ class ScreensController < ApplicationController
     @show = Show.find(params[:show_id])
     @screen = Screen.find_by(id: @show.screen_id)
     @cinema_seats = CinemaSeat.where(screen_id: @screen.id)
+    seat_reserveds = CinemaSeat.includes(:seat_reserveds).where(seat_reserveds: {show_id: @show.id})
+    @seat_reserved_ids = seat_reserveds.pluck(:id)
   end
 
   def edit
