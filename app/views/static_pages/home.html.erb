@@ -4,6 +4,39 @@
   <div class="home-title">
     <h2>movie selection</h2>
   </div>
+  <div class="slider" data-slick='{"infinite": true, "slidesToShow": 8, "slidesToScroll": 4}'>
+    <% @movies.each do |movie| %>
+      <%= link_to movie_path(movie) do %>
+        <div class="movie_item_slide">
+          <%= image_tag movie.image_link %>
+          <div class="hidden_button">
+            <h3><%= movie.title %></h3>
+            <%= link_to "Chi tiết", movie_path(movie), class: "btn btn-primary" %>
+            <%= link_to "Mua vé", shows_path(movie.id), class: "btn btn-primary" %>
+          </div> 
+        </div>
+      <% end -%>
+    <% end -%>
+  </div>
 
-  <div>~~~Movies list~~~</div>
 </div>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+<script type="text/javascript">
+  $(".slider").slick({
+
+  });
+  $(document).ready(function()
+  {
+    
+    $('.movie_item_slide').each(function() {
+      $(this).mouseover(function() { 
+        $(this).find(".hidden_button").css( "visibility", "visible" );
+      });
+      $(this).mouseout(function() { 
+        $(this).find(".hidden_button").css( "visibility", "hidden" );
+      });
+    });
+  });
+</script>

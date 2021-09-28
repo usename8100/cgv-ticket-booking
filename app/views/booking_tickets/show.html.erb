@@ -1,13 +1,13 @@
 <div class="ticket-show-main">
-   <%= link_to "<< Quay lai", 'javascript:history.back()' %>
+   <%= link_to "<< Trở về", 'javascript:history.back()' %>
   <div class="ticket-detail">
-    <span style="font-size:16px;font-weight: 300;position: absolute;line-height: 20px;">Ma hoa don: <%= @booking_ticket.id %><br>Ngay dat: <%= @booking_ticket.created_at.strftime("%d.%m.%Y") %></span>
+    <span style="font-size:16px;font-weight: 300;position: absolute;line-height: 20px;">Mã hóa đơn: <%= @booking_ticket.id %><br>Ngày đặt vé: <%= @booking_ticket.created_at.strftime("%d.%m.%Y") %></span>
     <h2><%= @movie.title %></h2>
     <div class="ticket-detail-left" id="hihi">
-      <span>Gio chieu: <%= @show.start_time + "-" +@show.end_time + " " + @show.date_show.strftime("%d.%m.%Y") %></span>
-      <span>Rap phim: <%= @cinema.name %></span>
-      <span>Phong chieu <%= @screen.name %></span>
-      <span style="display:inline;">Ve da dat: </span>
+      <span>Giờ chiếu phim: <%= @show.start_time + "-" +@show.end_time + " " + @show.date_show.strftime("%d.%m.%Y") %></span>
+      <span>Rạp phim: <%= @cinema.name %></span>
+      <span>Phòng chiếu <%= @screen.name %></span>
+      <span style="display:inline;">Vé đã đặt: </span>
       <% @seat_reserveds.each do |seat_rs|%>
         <% @cinema_seats.each do |c_seat| %>
           <% if seat_rs.cinema_seat_id == c_seat.id %>
@@ -15,10 +15,10 @@
           <% end -%>
         <% end -%>
       <% end -%>
-      <span>Tien ve: <%= @booking_ticket.seat_total_price.to_s + ".000 VND" %></span>
+      <span>Tổng giá vé: <%= @booking_ticket.seat_total_price.to_s + ".000 VNĐ" %></span>
     </div>
       <div class="ticket-detail-right">
-        <span class="display-food-left">Do an: </span>
+        <span class="display-food-left">Đồ ăn: </span>
         <div class="display-food-right">
           <% @detail_food_orders.each do |d_food|%>
             <% @foods.each do |food| %>
@@ -28,15 +28,15 @@
             <% end -%>
           <% end -%>
         </div>
-        <span style="clear: both;" id="food_price" data-price="<%= @booking_ticket.food_total_price %>">Tien do an: <%= @booking_ticket.food_total_price.to_s + ".000 VND" %></span>
+        <span style="clear: both;" id="food_price" data-price="<%= @booking_ticket.food_total_price %>">Tổng giá đồ ăn: <%= @booking_ticket.food_total_price.to_s + ".000 VNĐ" %></span>
       </div>    
 
     <center>
-      <span style="clear: both;font-size: 30px;line-height: 60px;">Tong thanh toan: <%= @booking_ticket.total.to_s + ".000 VND" %></span>
+      <span style="clear: both;font-size: 30px;line-height: 60px;">Tổng cộng: <%= @booking_ticket.total.to_s + ".000 VNĐ" %></span>
     </center>
   </div>
   <center>
-    <%= link_to 'Gui ticket den email', send_ticket_path, class:"btn btn-primary" %>
+    <%= link_to 'Gửi hóa đơn đến mail', send_ticket_path, class:"btn btn-primary", style: "font-weight:600;font-size:22px;line-height:30px" %>
   </center>
 </div>
 <script type="text/javascript">

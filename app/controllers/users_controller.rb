@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     @user.avatar.attach(params[:user][:avatar])
     if @user.save
       ExampleMailer.sample_email(@user).deliver
-      flash[:info] = "Please check your email to activate your account.\n"
+      flash[:info] = "Vui lòng kiểm tra email để kích hoạt tài khoản của bạn.\n"
       redirect_to root_url
     else
       render 'new'  
@@ -32,13 +32,13 @@ class UsersController < ApplicationController
     
     if @user && user
       if @user.update(user_params)
-        flash[:success] = "Profile updated"
+        flash[:success] = "Cập nhật thành công"
         redirect_to @user
       else
         render 'edit'
       end
     else
-      flash[:danger] = "Password incorrect"
+      flash[:danger] = "Sai mật khẩu"
       render 'edit'    
     end
   end

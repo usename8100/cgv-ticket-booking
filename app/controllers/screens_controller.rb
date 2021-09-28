@@ -12,6 +12,8 @@ class ScreensController < ApplicationController
     @cinema_seats = CinemaSeat.where(screen_id: @screen.id)
     seat_reserveds = CinemaSeat.includes(:seat_reserveds).where(seat_reserveds: {show_id: @show.id})
     @seat_reserved_ids = seat_reserveds.pluck(:id)
+    @total_seat = @cinema_seats.pluck(:id)
+    @remains_seat = @total_seat.length - @seat_reserved_ids.length
   end
 
   def edit

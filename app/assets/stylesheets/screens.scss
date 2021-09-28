@@ -6,6 +6,7 @@
   line-height:20px; 
   font-size:15px;
   margin-bottom: 50px;
+  text-transform: uppercase;
 }
 
 .smallBox::before {
@@ -131,4 +132,12 @@ table {
   background-color:#ccc;
   border-radius: 35% 35% 0 0;
   background-color: red;
+}
+
+.displayerBoxes {
+  a {
+    margin:10px;
+    font-weight: 800;
+    width: 120px;
+  }
 }
