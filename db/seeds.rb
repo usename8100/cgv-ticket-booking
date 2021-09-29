@@ -15,7 +15,8 @@ User.create!(name: "long test", email: "mail@gmail.com", password: "qweqwe", pas
   gender: false, phone_number: "0123455789", activated: true, activated_at: Time.zone.now, date_of_birth: Time.zone.now)
 
 Cinema.create(name: "CGV Ha Noi", total_screen: 3)
-Screen.create!(name: "so 1", total_seat: 3, cinema_id: 1)
+Screen.create!(name: "số 1", total_seat: 3, cinema_id: 1)
+Screen.create!(name: "số 2", total_seat: 3, cinema_id: 2)
 
 Show.create!(date_show: Time.zone.now, start_time: "11AM", end_time: "13AM", screen_id: 1, movie_id: 1)
 Show.create!(date_show: Time.zone.now, start_time: "13AM", end_time: "16AM", screen_id: 1, movie_id: 1)

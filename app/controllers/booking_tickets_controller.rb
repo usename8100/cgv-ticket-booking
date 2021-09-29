@@ -65,9 +65,9 @@ class BookingTicketsController < ApplicationController
         @seat_reserved.booking_ticket_id = @booking_ticket.id
         @seat_reserved.status = true
         if @seat_reserved.save
-          flash[:info] = "Luu ghe da dat thành công.\n"
+          flash[:info] = "Lưu thành công các ghế đã đặt.\n"
         else
-          flash[:danger] = "Opps! Save UNdone!!!.\n"
+          flash[:danger] = "Lưu các ghế đã đặt thất bại.\n"
         end
       end
 
@@ -86,15 +86,15 @@ class BookingTicketsController < ApplicationController
         @detail_food_order.total = total
 
         if @detail_food_order.save
-          flash[:info] = "Luu hoa hoa don do an thành công.\n"
+          flash[:info] = "Lưu thành công các đồ ăn đã đặt.\n"
         else
-          flash[:danger] = "Opps! Save UNdone!!!.\n"
+          flash[:danger] = "Lưu các đồ ăn đã đặt thất bại.\n"
         end 
       end
       flash[:info] = "Đặt vé thành công.\n"
       redirect_to movies_path
     else
-      flash[:danger] = "Đặt vé khong thành công.\n"
+      flash[:danger] = "Đặt vé thất bại.\n"
       redirect_to root_url 
     end
   end
@@ -102,12 +102,12 @@ class BookingTicketsController < ApplicationController
   def send_ticket
     ticket_id = params[:id]
     if TicketMailer.ticket_mailer(current_user, ticket_id).deliver_now
-      flash[:info] = "Gui hoa don den dia chi email thanh cong.\n"
+      flash[:info] = "Đã gửi hóa đơn đến " + current_user.email
       respond_to do |format|
         format.html { redirect_to request.referrer }
       end
     else
-      flash[:danger] = "Gui hoa don den dia chi email KHONG thanh cong!\n"
+      flash[:danger] = "Gửi email gặp lỗi.\n"
       respond_to do |format|
         format.html { redirect_to request.referrer }
       end

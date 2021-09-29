@@ -1,15 +1,16 @@
 <body onload="onLoaderFunc()">
   <div class="inputForm">
       <center>
-        <span id="seat-num-label">Nhap so ghe: </span><input type="number" id="Numseats" min="1" required>
+        <span id="seat-num-label">Vui lòng nhập số lượng ghế cần đặt: </span><input type="number" id="Numseats" min="1" required>
         <button onclick="takeData()" class="btn btn-confirm">OK</button>
+        <h3 style="color: #222;font-weight: 300;" id="remainsSeat" data-remain="<%= @remains_seat %>">Số ghế còn lại: <b><%= @remains_seat.to_s + "/" + @total_seat.length.to_s %></b></h3>
       </center>
     </div>
     <div id="hidden-part">
       <div class="seatStructure">
         <center>
           <p id="notification"></p>
-          <div class="screen">SCREEN</div>
+          <div class="screen">Màn hình</div>
           <table id="seatsBlock">
           <tr>
             <td></td>
@@ -22,28 +23,33 @@
               <td style="padding-bottom:0"><span><%= (x+65).chr %></span></td>
               <% @cinema_seats.each do |seat| %>
                 <% if seat.row == x+1 %>
-                  <td><input type="checkbox" class="seats" value="<%= (x+65).chr + seat.seat_no.to_s %>" data-seatprice="<%= seat.price %>"></td>
+                  <% if seat.id.in?(@seat_reserved_ids) %>
+                    <td><span class="seat_reserved"><input type="checkbox"><span></td>
+                  <% else %>
+                    <td><input type="checkbox" class="seats" value="<%= (x+65).chr + seat.seat_no.to_s %>" data-seatprice="<%= seat.price %>"></td>
+                  <% end -%>
                 <% end -%>
               <% end -%>
             </tr>
           <% end -%>
         </table>
         <div class="label-seat-status">
-          <div class="smallBox greenBox"><span>Ghe vua chon</span></div>
-          <div class="smallBox redBox"><span>Ghe da duoc dat</span></div>
-          <div class="smallBox emptyBox"><span>Ghe co the dat</span></div>
+          <div class="smallBox greenBox"><span>Ghế vừa chọn</span></div>
+          <div class="smallBox redBox"><span>Ghế đã được đặt</span></div>
+          <div class="smallBox emptyBox"><span>Ghế có thể đặt</span></div>
         </div>
-        <button onclick="updateTextArea()" class="btn btn-confirm">Luu ghe da chon</button>
+        <button onclick="updateTextArea()" class="btn btn-confirm">Lưu lại các lựa chọn</button>
       </center>
     </div>
     <div class="displayerBoxes">
       <center id="seat-result-box" style="display:none;color: #222;">
-        <h3>Cac ghe da chon</h3>
-        <b id="seat-selected" style="text-align:center;color: #222;font-size: 18px;"></b>
-        <br><h3>Tong gia ve</h3>
-        <b id="seat-total-price" style="text-align:center;color: #222;font-size: 18px;"></b>
+        <h3 style="margin-top:0">Ghế vừa chọn</h3>
+        <b id="seat-selected" style="text-align:center;color: #222;font-size: 20px;color: green;"></b>
+        <h3>Tổng giá vé</h3>
+        <b id="seat-total-price" style="text-align:center;color: #222;font-size: 25px;color: red;"></b>
         <br>
-        <%= link_to 'Thanh toan', booking_tickets_path(@show.id, @show.screen_id), class: "btn btn-primary" %>
+        <%= link_to 'Hủy bỏ', "", class: "btn btn-primary" %>
+        <%= link_to 'Tiếp tục', booking_tickets_path(@show.id, @show.screen_id), class: "btn btn-primary" %>
       </center>
     </div>
   </div>
@@ -55,15 +61,23 @@ function onLoaderFunc(){
 }
 
 function takeData(){
+  inputSeat = parseInt($("#Numseats").val());
+  seatLeft = parseInt($("#remainsSeat").data("remain"));
+
   if ( $("#Numseats").val().length == 0 || $("#Numseats").val() < 0 )
   {
-    alert("Hay nhap so luong ghe can dat!");
+    alert("Xin vui lòng nhập số lượng chỗ ngồi cần đặt vào ô bên dưới!");
+  }
+  else if(seatLeft < inputSeat){
+    alert("Suất chiếu chỉ còn lại " + seatLeft + " chỗ ngồi. Vui lòng nhập số lượng ít hơn hoặc chọn suất chiếu khác.");
+    $("#Numseats").val("");
   }
   else
   {
     $(".inputForm *").prop("disabled", true);
     $(".seatStructure *").prop("disabled", false);
-    $("#notification").html("<b style='margin-bottom:0px;background:yellow;font-size:20px;'>Hay lua chon cho ngoi!</b>");
+    $(".seat_reserved *").prop("disabled", true);
+    $("#notification").html("<b style='margin-bottom:0px;background:yellow;font-size:20px;'>Xin vui lòng chọn chỗ ngồi của bạn!</b>");
     $("#hidden-part").show();
   }
 }
@@ -84,7 +98,7 @@ function updateTextArea(){
     });
 
     $('#seat-selected').text(allSeatsVals);
-    $('#seat-total-price').text(seatTotalPrice);
+    $('#seat-total-price').text(seatTotalPrice + ".000 VNĐ");
     $('#seat-result-box').show();
     localStorage.setItem("num_seat", allNumberVals);
     localStorage.setItem("list_seats", allSeatsVals);
@@ -92,7 +106,7 @@ function updateTextArea(){
   }
   else
   {
-    alert("Hay chon du " + ($("#Numseats").val()) + " cho ngoi!")
+    alert("Vui lòng chọn đủ " + ($("#Numseats").val()) + " chỗ ngồi!")
   }
 }
 

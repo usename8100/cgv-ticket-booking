@@ -23,17 +23,17 @@
     <div class="my-account">
       <div class="dashboard">
         <div class="page-title">
-          <h1>Lich su giao dich</h1>
+          <h1>Lịch sử giao dịch</h1>
         </div>
         <div class="format-profile-cgv row">
           <% if !@booking_tickets.first.nil? %>
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th scope="col">Ten phim</th>
-                  <th scope="col">Ngay chieu</th>
-                  <th scope="col">Thoi gian dat ve</th>
-                  <th scope="col">Trang thai</th>
+                  <th scope="col">Tên phim</th>
+                  <th scope="col">Ngày chiếu</th>
+                  <th scope="col">Thời gian đặt vé</th>
+                  <th scope="col">Trạng thái</th>
                   <th scope="col"></th>
                 </tr>
               </thead>
@@ -54,21 +54,21 @@
                     <% @shows.each do |show| %>
                       <% if ticket.show_id == show.id %>
                         <% if Date.today > show.date_show %>
-                          <td>Da xem</td>
+                          <td>Đã xem phim</td>
                         <% else %>
-                          <td>Chua xem</td>
+                          <td>Chưa xem phim</td>
                         <% end -%>                      
                       <% end -%>
                     <% end -%>
                     <td>
-                      <%= link_to 'Xem ve', show_ticket_path(ticket.id), class:"btn btn-primary" %>
+                      <%= link_to 'Xem hóa đơn', show_ticket_path(ticket.id), class:"btn btn-primary" %>
                     </td>
                   </tr>
                 <% end -%>
               </tbody>
             </table>
           <% else %>
-            <center><h2>Ban chua co giao dich nao.</h2></center>
+            <center><h2>Bạn chưa có giao dịch nào.</h2></center>
           <% end -%>
         </div>
       </div>
