@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
       if user.activated?
         log_in user
         params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-        redirect_back_or user
+        redirect_back_or movies_path
       else
         message = "Tài khoản chưa được kích hoạt. "
         message += "Vui lòng kiểm tra email để kích hoạt tài khoản của bạn."
