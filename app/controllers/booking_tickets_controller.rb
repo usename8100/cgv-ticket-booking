@@ -92,7 +92,7 @@ class BookingTicketsController < ApplicationController
         end 
       end
       flash[:info] = "Đặt vé thành công.\n"
-      redirect_to movies_path
+      redirect_to show_ticket_path @booking_ticket.id
     else
       flash[:danger] = "Đặt vé thất bại.\n"
       redirect_to root_url 
